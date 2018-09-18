@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- Ubicación del JAR JDBC del gestor de Base de datos a usar, en este caso Postgresql  -->
+    <classPathEntry location="Sigo-ejb/src/main/resources/postgresql-9.3-1103.jdbc4.jar" />
+    <!--  Generaremos para MyBatis versión 3 -->
+    <context id="DB1" targetRuntime="MyBatis3">
+        
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="py.com.konecta.mybatis.gen.extender.GenericDAOPlugin"/>
+        <!-- No generamos los comentarios -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+        
+        <!--  Parámetros de conexión a la bd -->
+        <jdbcConnection driverClass="org.postgresql.Driver" 
+                        connectionURL="jdbc:postgresql://localhost:5432/sigo"
+                        userId="admin" 
+                        password="admin.18">
+        </jdbcConnection>
+        
+        <!--Aqui salida es una carpeta, es la carpeta donde el generator pondra los .java-->
+        <javaModelGenerator targetPackage="py.com.sigo.ejb.model" targetProject="Sigo-ejb/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaModelGenerator>
+        
+        <!-- También podríamos indicar el tipo ANNOTATEDMAPPER -->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="py.com.sigo.ejb.mapper" targetProject="Sigo-ejb/src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        
+        <table tableName="pacientes">
+            <generatedKey column="id_paciente" sqlStatement="JDBC" />
+        </table>
+        <table tableName="agendamientos">
+            <generatedKey column="id_agendamiento" sqlStatement="JDBC" />
+        </table>
+        <table tableName="clinicas">
+            <generatedKey column="id_clinica" sqlStatement="JDBC" />
+        </table>
+        <table tableName="consultas">
+            <generatedKey column="id_consulta" sqlStatement="JDBC" />
+        </table>
+        <table tableName="profesionales">
+            <generatedKey column="id_profesional" sqlStatement="JDBC" />
+        </table>
+        
+    </context>
+</generatorConfiguration>
