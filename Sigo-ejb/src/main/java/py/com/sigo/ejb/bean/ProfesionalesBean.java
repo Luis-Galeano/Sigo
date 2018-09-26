@@ -5,6 +5,7 @@
  */
 package py.com.sigo.ejb.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,106 +15,79 @@ import static py.com.sigo.ejb.Constantes.ESTADO_ERROR;
 import static py.com.sigo.ejb.Constantes.ESTADO_EXITO;
 import static py.com.sigo.ejb.Constantes.MENSAJE_ERROR;
 import static py.com.sigo.ejb.Constantes.MENSAJE_EXITO;
-import py.com.sigo.ejb.dao.ClinicasDAO;
-import py.com.sigo.ejb.dao.ProcedimientosDAO;
+import py.com.sigo.ejb.dao.ProfesionalesDAO;
 import py.com.sigo.ejb.dto.GenericResponse;
-import py.com.sigo.ejb.model.Clinicas;
-import py.com.sigo.ejb.model.ClinicasExample;
-import py.com.sigo.ejb.model.Procedimientos;
-import py.com.sigo.ejb.model.ProcedimientosExample;
+import py.com.sigo.ejb.model.Profesionales;
+import py.com.sigo.ejb.model.ProfesionalesExample;
 
 /**
  *
  * @author Luis Galeano
  */
 @Stateless
-public class ClinicasBean {
+public class ProfesionalesBean {
     private final Logger logger = LogManager.getLogger(this.getClass());
     @Inject
-    ClinicasDAO clinicaDao;
-    @Inject
-    ProcedimientosDAO procedimientoDao;
+    ProfesionalesDAO profesinalDao;
     
-    public GenericResponse obtenerDatosClinica(long idClinica){
+    public GenericResponse agregarProfesional(Profesionales profesional){
+        logger.info("IN: {}",profesional);
+        GenericResponse resp = new GenericResponse();
+        try {
+            profesinalDao.insertSelective(profesional);
+            resp.setDato(profesional);
+            resp.setMensaje(MENSAJE_EXITO);
+            resp.setEstado(ESTADO_EXITO);
+        } catch (Exception e) {
+            resp.setMensaje(MENSAJE_ERROR);
+            resp.setEstado(ESTADO_ERROR);
+            logger.error("",e);
+        }
+        logger.info("OUT: {}",resp);
+        return resp;
+    }
+    
+    public GenericResponse obtenerProfesionales(long idClinica){
         logger.info("IN: {}",idClinica);
-        ClinicasExample cexample = new ClinicasExample();
-        GenericResponse resp = new GenericResponse();
-        Clinicas data = null;
-        try {
-            cexample.createCriteria().andIdClinicaEqualTo(idClinica);
-            data = clinicaDao.selectOneByExample(cexample);
-            resp.setDato(data);
-            resp.setMensaje(MENSAJE_EXITO);
-            resp.setEstado(ESTADO_EXITO);
-        } catch (Exception e) {
-            resp.setMensaje(MENSAJE_ERROR);
-            resp.setEstado(ESTADO_ERROR);
-            logger.error("",e);
-        }
-        logger.info("OUT: {}",resp);
-        return resp;
-    }
-    
-    public GenericResponse obtenerClinicas(){
-        logger.info("IN: ");
-        GenericResponse resp = new GenericResponse();
-        List<Clinicas> data = null;
-        try {
-            data = clinicaDao.selectByExample(null);
-            resp.setDato(data);
-            resp.setMensaje(MENSAJE_EXITO);
-            resp.setEstado(ESTADO_EXITO);
-        } catch (Exception e) {
-            resp.setMensaje(MENSAJE_ERROR);
-            resp.setEstado(ESTADO_ERROR);
-            logger.error("",e);
-        }
-        logger.info("OUT: {}",resp);
-        return resp;
-    }
-    
-    public GenericResponse agregarnuevaClinica(Clinicas clinica){
-        logger.info("IN: {}",clinica);
         GenericResponse resp = new GenericResponse();
         try {
-            clinicaDao.insertSelective(clinica);
-            resp.setDato(clinica);
-            resp.setMensaje(MENSAJE_EXITO);
-            resp.setEstado(ESTADO_EXITO);
-        } catch (Exception e) {
-            resp.setMensaje(MENSAJE_ERROR);
-            resp.setEstado(ESTADO_ERROR);
-            logger.error("",e);
-        }
-        logger.info("OUT: {}",resp);
-        return resp;
-    }
-    public GenericResponse actualizarDatosClinica(Clinicas clinica){
-        logger.info("IN: {}",clinica);
-        GenericResponse resp = new GenericResponse();
-        try {
-            clinicaDao.updateByPrimaryKey(clinica);
-            resp.setDato(clinica);
-            resp.setMensaje(MENSAJE_EXITO);
-            resp.setEstado(ESTADO_EXITO);
-        } catch (Exception e) {
-            resp.setMensaje(MENSAJE_ERROR);
-            resp.setEstado(ESTADO_ERROR);
-            logger.error("",e);
-        }
-        logger.info("OUT: {}",resp);
-        return resp;
-    }
-    
-    public GenericResponse obtenerProcedimientosClinica(long idClinica){
-        logger.info("IN: {}",idClinica);
-        ProcedimientosExample pexample = new ProcedimientosExample();
-        GenericResponse resp = new GenericResponse();
-        List<Procedimientos> data = null;
-        try {
+            ProfesionalesExample pexample = new ProfesionalesExample();
             pexample.createCriteria().andIdClinicaEqualTo(idClinica);
-            data = procedimientoDao.selectByExample(pexample);
+            List<Profesionales> data  = profesinalDao.selectByExample(pexample);
             resp.setDato(data);
+            resp.setMensaje(MENSAJE_EXITO);
+            resp.setEstado(ESTADO_EXITO);
+        } catch (Exception e) {
+            resp.setMensaje(MENSAJE_ERROR);
+            resp.setEstado(ESTADO_ERROR);
+            logger.error("",e);
+        }
+        logger.info("OUT: {}",resp);
+        return resp;
+    }
+    
+    public GenericResponse actualizarProfesional(Profesionales profesional){
+        logger.info("IN: {}",profesional);
+        GenericResponse resp = new GenericResponse();
+        try {
+            profesinalDao.updateByPrimaryKey(profesional);
+            resp.setDato(profesional);
+            resp.setMensaje(MENSAJE_EXITO);
+            resp.setEstado(ESTADO_EXITO);
+        } catch (Exception e) {
+            resp.setMensaje(MENSAJE_ERROR);
+            resp.setEstado(ESTADO_ERROR);
+            logger.error("",e);
+        }
+        logger.info("OUT: {}",resp);
+        return resp;
+    }
+    
+    public GenericResponse eliminarProfesional(long idProfesional){
+        logger.info("IN: {}",idProfesional);
+        GenericResponse resp = new GenericResponse();
+        try {
+            profesinalDao.deleteByPrimaryKey(idProfesional);
             resp.setMensaje(MENSAJE_EXITO);
             resp.setEstado(ESTADO_EXITO);
         } catch (Exception e) {
