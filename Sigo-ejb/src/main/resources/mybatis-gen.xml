@@ -49,6 +49,9 @@
         <table tableName="profesionales">
             <generatedKey column="id_profesional" sqlStatement="JDBC" />
         </table>
+        <table tableName="procedimientos">
+            <generatedKey column="id_procedimiento" sqlStatement="JDBC" />
+        </table>
         
     </context>
 </generatorConfiguration>

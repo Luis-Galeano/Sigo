@@ -23,6 +23,7 @@ public class JaxRsActivator extends Application {
     }
     
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(py.com.sigo.web.rest.ClinicasResource.class);
         resources.add(py.com.sigo.web.rest.PacientesResource.class);
     }  
 }
