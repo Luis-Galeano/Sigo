@@ -6,6 +6,7 @@
 package py.com.sigo.web.rest;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -32,6 +33,7 @@ public class ProcedimientosResource {
      
      @POST
      @Produces(MediaType.APPLICATION_JSON)
+     @Consumes(MediaType.APPLICATION_JSON)
      @Path("add")
      public GenericResponse agregarProcedimiento(Procedimientos procedimiento){
          return procedimientosBean.agregarProcedimiento(procedimiento);
@@ -46,6 +48,7 @@ public class ProcedimientosResource {
      
      @POST
      @Produces(MediaType.APPLICATION_JSON)
+     @Consumes(MediaType.APPLICATION_JSON)
      @Path("update")
      public GenericResponse actualizarProcedimiento(Procedimientos procedimiento){
          return procedimientosBean.actualizarProcedimiento(procedimiento);

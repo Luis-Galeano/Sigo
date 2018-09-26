@@ -6,6 +6,7 @@
 package py.com.sigo.web.rest;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,6 +33,7 @@ public class ProfesionalesResource {
      
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("add")
     public GenericResponse agregarProfesional(Profesionales profesinal){
         return profesionalBean.agregarProfesional(profesinal);
@@ -43,6 +45,7 @@ public class ProfesionalesResource {
     }
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("update")
     public GenericResponse actualizarProfesional(Profesionales profesinal){
         return profesionalBean.actualizarProfesional(profesinal);

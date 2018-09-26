@@ -6,6 +6,7 @@
 package py.com.sigo.web.rest;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,6 +45,7 @@ public class ClinicasResource {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("add")
     public GenericResponse agregarNuevaClinica(Clinicas clinica){
         return clinicasBean.agregarnuevaClinica(clinica);
@@ -51,6 +53,7 @@ public class ClinicasResource {
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("update")
     public GenericResponse actualizarDatosClinica(Clinicas clinica){
         return clinicasBean.actualizarDatosClinica(clinica);

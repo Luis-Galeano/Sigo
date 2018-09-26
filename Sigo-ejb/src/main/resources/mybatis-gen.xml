@@ -52,6 +52,9 @@
         <table tableName="procedimientos">
             <generatedKey column="id_procedimiento" sqlStatement="JDBC" />
         </table>
+        <table tableName="historial_clinico">
+            <generatedKey column="id_historial_clinico" sqlStatement="JDBC" />
+        </table>
         
     </context>
 </generatorConfiguration>
