@@ -7,6 +7,7 @@ package py.com.sigo.web.rest;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -58,6 +59,21 @@ public class PacientesResource {
     @Path("{id}/historialClinico")
     public GenericResponse obtenerHistorialClinico(@PathParam("id") long idPaciente){
         return pacientesBean.obtenerHistorialClinico(idPaciente);
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("update")
+    public GenericResponse actualizarDatosPaciente(Pacientes paciente){
+        return pacientesBean.actualizarDatosPaciente(paciente);
+    }
+    
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("delete")
+    public GenericResponse eliminarDatosPaciente(@QueryParam("idPaciente") long idPaciente){
+        return pacientesBean.eliminarPaciente(idPaciente);
     }
      
 }

@@ -73,10 +73,44 @@ public class PacientesBean {
     }
     
     public GenericResponse agregarPaciente(Pacientes paciente){
+        logger.info("IN: {}",paciente);
         GenericResponse resp = new GenericResponse();
         try {
             pacienteDao.insertSelective(paciente);
             resp.setDato(paciente);
+            resp.setMensaje(MENSAJE_EXITO);
+            resp.setEstado(ESTADO_EXITO);
+        } catch (Exception e) {
+            resp.setMensaje(MENSAJE_ERROR);
+            resp.setEstado(ESTADO_ERROR);
+            logger.error("",e);
+        }
+        logger.info("OUT: {}",resp);
+        return resp;
+    }
+    
+    public GenericResponse actualizarDatosPaciente(Pacientes paciente){
+        logger.info("IN: {}",paciente);
+        GenericResponse resp = new GenericResponse();
+        try {
+            pacienteDao.updateByPrimaryKey(paciente);
+            resp.setDato(paciente);
+            resp.setMensaje(MENSAJE_EXITO);
+            resp.setEstado(ESTADO_EXITO);
+        } catch (Exception e) {
+            resp.setMensaje(MENSAJE_ERROR);
+            resp.setEstado(ESTADO_ERROR);
+            logger.error("",e);
+        }
+        logger.info("OUT: {}",resp);
+        return resp;
+    }
+    
+    public GenericResponse eliminarPaciente(long idPaciente){
+        logger.info("IN: {}",idPaciente);
+        GenericResponse resp = new GenericResponse();
+        try {
+            pacienteDao.deleteByPrimaryKey(idPaciente);
             resp.setMensaje(MENSAJE_EXITO);
             resp.setEstado(ESTADO_EXITO);
         } catch (Exception e) {
