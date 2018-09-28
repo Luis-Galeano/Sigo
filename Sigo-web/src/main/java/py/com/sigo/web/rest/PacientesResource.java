@@ -53,7 +53,7 @@ public class PacientesResource {
         return pacientesBean.obtenerDatosPaciente(idPaciente);
     }
     
-    @POST
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("{id}/historialClinico")
